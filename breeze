@@ -29,12 +29,8 @@ function breeze_vagrant_dotfile_path()
 
 function breeze_app_path()
 {
-    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-        return __DIR__;
-    }
-
-    return realpath('../clickrain/breeze');
+    return __DIR__;
 }
 
-$app = new ClickRain\Breeze\Application('Click Rain Breeze', '0.1.0');
+$app = new ClickRain\Breeze\Application('Click Rain Breeze', '0.1.2');
 $app->run();
