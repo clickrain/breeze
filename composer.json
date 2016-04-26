@@ -9,7 +9,6 @@
         "symfony/yaml": "^2.7",
         "illuminate/support": "~5.0",
         "stecman/symfony-console-completion": "^0.5.1",
-        "philo/laravel-blade": "^3.0",
         "twig/twig": "^1.24"
     },
     "require-dev": {
