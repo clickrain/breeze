@@ -35,7 +35,7 @@ Breeze uses an Ubuntu box as it's virtualized environment. Use Vagrant to add th
 
 Install Breeze globally using composer:
 
-    composer global require clickrain/breeze
+    composer global require clickrain/breeze dev-master
 
 Make sure that composer `bin` directory is in your path:
 

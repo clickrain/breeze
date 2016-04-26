@@ -38,9 +38,15 @@ class VagrantHelper extends Helper
             'vagrant provision' => 'breeze provision',
         ];
 
-        $process = new Process('vagrant ' . $command, breeze_app_path(), array_merge($_SERVER, $_ENV), null, null);
-        return $process->run(function ($type, $buffer) use ($output, $replaceLines) {
+        $process = new Process(
+            $this->setEnvironmentCommand() . ' vagrant ' . $command,
+            breeze_app_path(),
+            array_merge($_SERVER, $_ENV),
+            null,
+            null
+        );
 
+        return $process->run(function ($type, $buffer) use ($output, $replaceLines) {
             foreach ($replaceLines as $search => $replace) {
                 if (strpos($buffer, $search) !== false) {
                     $buffer = str_replace($search, $replace, $buffer);
@@ -49,5 +55,19 @@ class VagrantHelper extends Helper
 
             $output->write($buffer);
         });
+    }
+
+    protected function setEnvironmentCommand()
+    {
+        if ($this->isWindows()) {
+            return 'SET VAGRANT_DOTFILE_PATH=' . breeze_vagrant_dotfile_path() . ' &&';
+        }
+
+        return 'VAGRANT_DOTFILE_PATH="' . breeze_vagrant_dotfile_path() . '"';
+    }
+
+    protected function isWindows()
+    {
+        return strpos(strtoupper(PHP_OS), 'WIN') === 0;
     }
 }
