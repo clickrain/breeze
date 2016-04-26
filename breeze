@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+
+$_ENV['VAGRANT_DOTFILE_PATH'] = breeze_vagrant_dotfile_path();
+
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require __DIR__ . '/vendor/autoload.php';
+} else {
+    require __DIR__ . '/../../autoload.php';
+}
+
+function breeze_config_path()
+{
+    if (isset($_SERVER['HOME'])) {
+        return $_SERVER['HOME'] . '/.breeze';
+    }
+
+    return $_SERVER['HOMEDRIVE'] . $_SERVER['HOMEPATH'] . DIRECTORY_SEPARATOR . '.breeze';
+}
+
+function breeze_vagrant_dotfile_path()
+{
+    if ($path = getenv('BREEZE_VAGRANT_DOTFILE_PATH')) {
+        return $path;
+    }
+
+    return breeze_config_path() . DIRECTORY_SEPARATOR . '.vagrant';
+}
+
+function breeze_app_path()
+{
+    if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+        return __DIR__;
+    }
+
+    return realpath('../clickrain/breeze');
+}
+
+$app = new ClickRain\Breeze\Application('Click Rain Breeze', '0.1.0');
+$app->run();

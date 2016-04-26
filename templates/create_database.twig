@@ -1,0 +1,5 @@
+mysql --user="root" --password="secret" -e "GRANT ALL ON {{ database.local_name }}.* TO '{{ database.local_user }}'@'0.0.0.0' IDENTIFIED BY '{{ database.local_password }}';"
+mysql --user="root" --password="secret" -e "GRANT ALL ON {{ database.local_name }}.* TO '{{ database.local_user }}'@'%' IDENTIFIED BY '{{ database.local_password }}';"
+mysql --user="root" --password="secret" -e "FLUSH PRIVILEGES;"
+mysql --user="root" --password="secret" -e "CREATE DATABASE {{ database.local_name }};"
+sudo service mysql restart

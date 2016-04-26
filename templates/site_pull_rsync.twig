@@ -1,0 +1,11 @@
+mkdir -p {{ site.path }}
+rsync -avz -e "ssh -p {{ server.port }}" \
+--exclude .git \
+--exclude hub.git \
+--exclude statistics \
+--exclude httpdocs-bak \
+{% if site.uploads_path %}
+--exclude {{ site.uploads_path }} \
+{% endif %}
+{{ server.user }}@{{ server.host }}:{{ site.server_path }}/ \
+{{ site.path }}

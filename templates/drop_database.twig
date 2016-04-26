@@ -1,0 +1,4 @@
+mysql --user="root" --password="secret" -e "REVOKE ALL ON {{ database.local_name }}.* FROM '{{ database.local_user }}'@'0.0.0.0';"
+mysql --user="root" --password="secret" -e "REVOKE ALL ON {{ database.local_name }}.* FROM '{{ database.local_user }}'@'%';"
+mysql --user="root" --password="secret" -e "FLUSH PRIVILEGES;"
+mysql --user="root" --password="secret" -e "DROP DATABASE {{ database.local_name }};"

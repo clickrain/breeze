@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<ruleset name="PHP_CodeSniffer">
+ <description>Codesniffer config for Click Rain Breeze</description>
+ <file>app</file>
+ <rule ref="PSR2"/>
+</ruleset>

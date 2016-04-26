@@ -1,0 +1,16 @@
+<VirtualHost *:80>
+    ServerName              {{ site.id }}
+{% for alias in site.aliases %}
+    ServerAlias             {{ alias }}
+{% endfor %}
+    DocumentRoot            {{ site.path }}/{{ site.document_root }}
+    CustomLog               /var/log/apache2/{{ site.id }}-access.log "%v %h %l %u %t \"%r\" %>s %b"
+    ErrorLog                /var/log/apache2/{{ site.id }}-error.log
+
+    <Directory "{{ site.path }}/{{ site.document_root }}">
+        DirectoryIndex index.php index.html
+        AllowOverride All
+        Options -Indexes -MultiViews -Includes +FollowSymLinks +SymLinksIfOwnerMatch
+        Require all granted
+    </Directory>
+</VirtualHost>

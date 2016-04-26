@@ -1,0 +1,37 @@
+ssh {{ server.user }}@{{ server.host }} \
+    {% if server.port %} -p {{ server.port }} {% endif %} \
+    {% if server.identity_file %} -i {{ server.identity_file }} {% endif %} \
+    -o StrictHostKeyChecking=no \
+    -o LogLevel=ERROR \
+    -o ExitOnForwardFailure=yes \
+    '\
+{% if database.ignore_tables_on_pull|length %} \
+    mysqldump \
+        --user={{ database.remote_user }} \
+        --password="{{ database.remote_password|raw }}" \
+        --host={{ database.remote_host }} \
+        --port={{ database.remote_port }} \
+        --skip-lock-tables \
+        --no-data \
+        {% if gtidFix %} --set-gtid-purged=OFF {% endif %} \
+        {{ database.remote_name }} \
+    && \
+{% endif %} \
+    mysqldump \
+        --user={{ database.remote_user }} \
+        --password="{{ database.remote_password|raw }}" \
+        --host={{ database.remote_host }} \
+        --port={{ database.remote_port }} \
+        --skip-lock-tables \
+        {% for table in database.ignore_tables_on_pull %}
+            --ignore-table={{ database.remote_name }}.{{ table }} \
+        {% endfor %}
+        {% if gtidFix %} --set-gtid-purged=OFF {% endif %}
+        {{ database.remote_name }} \
+    '\
+ | \
+mysql \
+--user="root" \
+--password="secret" \
+--host=0.0.0.0 \
+{{ database.local_name }}; \

@@ -1,0 +1,43 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+
+# folders:
+#     - map: ~/workspace
+#       to: /var/www/vhosts
+
+# ports:
+#   - send: 9999
+#     to: 9999
+
+# servers:
+#     - id: web1
+#       user: james
+#       host: web1.example.net
+#       port: 4561
+
+# sites:
+#     - id: example.com
+#       aliases: [example.dev]
+#       path: /var/www/vhosts/example.com
+#       document_root: httpdocs
+#       server: web1
+#       server_path: /var/www/vhosts/example.com
+#       uploads_path: public/uploads
+
+# databases:
+#     - id: example
+#       local_name: example
+#       local_user: example
+#       local_password: secret
+#       remote_name: example_prod
+#       remote_user: example_prod
+#       remote_password: prodsecret
+#       remote_host: localhost
+#       remote_port: 3306
+#       server: web1

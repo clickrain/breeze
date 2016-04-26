@@ -1,0 +1,7 @@
+mysqldump \
+    --set-gtid-purged=OFF \
+    --user={{ database.local_user }} \
+    --password="{{ database.local_password }}" \
+    --host=0.0.0.0 \
+    --skip-lock-tables \
+    {{ database.local_name }}

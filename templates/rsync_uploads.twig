@@ -1,0 +1,3 @@
+rsync -avz -e "ssh -p {{ server.port }}" \
+{{ server.user }}@{{ server.host }}:{{ site.server_path }}/{{ site.uploads_path }}/ \
+{{ site.path }}/{{ site.uploads_path }}

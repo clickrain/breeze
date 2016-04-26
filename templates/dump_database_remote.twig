@@ -1,0 +1,14 @@
+ssh {{ server.user }}@{{ server.host }} \
+    {% if server.port %} -p {{ server.port }} {% endif %} \
+    {% if server.identity_file %} -i {{ server.identity_file }} {% endif %} \
+    -o StrictHostKeyChecking=no \
+    -o LogLevel=ERROR \
+    -o ExitOnForwardFailure=yes \
+mysqldump \
+    --user={{ database.remote_user }} \
+    --password="{{ database.remote_password }}" \
+    --host={{ database.remote_host }} \
+    --port={{ database.remote_port }} \
+    --skip-lock-tables \
+    {% if gtidFix %} --set-gtid-purged=OFF \ {% endif %}
+    {{ database.remote_name }}

@@ -1,0 +1,9 @@
+{% for server in servers %}
+Host {{ server.id }} {{ server.host }}
+    Hostname {{ server.host }}
+    Port {{ server.port }}
+    KeepAlive yes
+    ServerAliveInterval 60
+    User {{ server.user }}
+
+{% endfor %}
